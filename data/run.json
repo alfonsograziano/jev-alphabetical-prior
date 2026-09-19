@@ -1,0 +1,24 @@
+{
+  "collectedAt": "2026-09-19T12:34:25.280Z",
+  "modelRequested": "jev-latest",
+  "modelsAnswered": [
+    "jev-1.13.0"
+  ],
+  "optionsPerSet": 16,
+  "setsPerArm": 30,
+  "armSeeds": {
+    "words": 1000001,
+    "nonsense": 2000002,
+    "uuid": 3000003,
+    "mixedcase": 4000004,
+    "numeric": 5000005
+  },
+  "batchSize": 10,
+  "batchSeed": 777777,
+  "state": "There is no information here that favours any option.",
+  "instructions": "Pick one of the options. Nothing in the state favours any of them.",
+  "liveRequests": 15,
+  "cachedRequests": 0,
+  "inputTokens": 39438,
+  "outputTokens": 37107
+}

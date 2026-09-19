@@ -7,7 +7,9 @@
   "scripts": {
     "collect": "node scripts/collect.ts",
     "analyse": "node scripts/analyse.ts",
-    "all": "npm run collect && npm run analyse",
+    "followup": "node scripts/followup.ts",
+    "explore": "node scripts/explore.ts",
+    "all": "npm run collect && npm run followup && npm run analyse && npm run explore",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
