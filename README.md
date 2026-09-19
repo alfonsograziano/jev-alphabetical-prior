@@ -10,6 +10,8 @@ written first. It went to the option whose **name sorted first alphabetically** 
 runs it properly: 273 option sets, a pre-registered analysis plan, and exact
 tests.
 
+📊 **[Read the technical review →](https://alfonsograziano.github.io/jev-alphabetical-prior/)**
+
 **The short version.** The effect is real, it is not alphabetical, and the
 practical advice that follows from it is different from what the original
 finding implied.
@@ -190,6 +192,7 @@ The full run is 28 requests and about 56k input tokens.
 PREREGISTRATION.md   hypotheses and analysis plan, committed before any data
 RESULTS.md           the pre-registered tests
 EXPLORATORY.md       post-hoc analysis, labelled as such
+docs/index.html      the technical review, served by GitHub Pages
 data/
   raw.ndjson         150 sets: names, winner, full distribution
   followup.ndjson    123 sets: the 2x2 and the replication
