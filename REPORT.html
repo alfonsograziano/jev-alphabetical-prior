@@ -224,12 +224,27 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
 .prompt.bad .tag { background: var(--neg-tint); color: var(--neg); }
 .prompt.good .tag { background: var(--ok-tint); color: var(--ok); }
 .prompt-head .what { font-size: 0.92rem; font-weight: 700; }
-.prompt pre { margin: 0; padding: 1rem; overflow-x: auto; background: var(--surface-sunk); font-family: var(--mono); font-size: 0.73rem; line-height: 1.7; }
+.prompt pre {
+  margin: 0; padding: 1rem; background: var(--surface-sunk);
+  font-family: var(--mono); font-size: 0.73rem; line-height: 1.7;
+  /* Wrap long string values rather than hard-wrapping them in the source:
+     a raw newline inside a JSON string would make the example invalid. */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
 .k { color: var(--under); }
 .s { color: var(--ink-2); }
 .p { color: var(--ink-3); }
-.mark-bad  { background: var(--neg-tint); display: inline-block; width: 100%; border-radius: 2px; }
-.mark-good { background: var(--ok-tint);  display: inline-block; width: 100%; border-radius: 2px; }
+/* Inline so the highlight follows the text when it wraps; clone repaints the
+   background on every wrapped fragment instead of only the first. */
+/* One logical line per block, with a hanging indent, so a wrapped
+   continuation reads as part of its line instead of starting at column 0. */
+pre .ln { display: block; padding-left: 2.4em; text-indent: -2.4em; }
+pre .ln:empty { display: none; }
+
+.mark-bad, .mark-good { border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.mark-bad  { background: var(--neg-tint); }
+.mark-good { background: var(--ok-tint); }
 .prompt-notes { padding: 0.95rem 1rem 1.1rem; display: grid; gap: 0.5rem; font-size: 0.85rem; color: var(--ink-2); border-top: 1px solid var(--rule); }
 .prompt-notes div { display: grid; grid-template-columns: 1rem 1fr; gap: 0.5rem; align-items: start; }
 .prompt-notes .mk { font-weight: 700; line-height: 1.5; font-family: var(--mono); }
@@ -256,8 +271,16 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
 .vitem h4 { color: var(--ink); }
 .vitem p { font-size: 0.89rem; color: var(--ink-2); }
 
-.repro { font-family: var(--mono); font-size: 0.78rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; padding: 0.9rem 1rem; overflow-x: auto; color: var(--ink-2); line-height: 1.8; }
-.repro b { color: var(--ink); font-weight: 700; }
+/* A command listing is tabular, so lay it out with a grid rather than <br>
+   and monospace padding. */
+.repro {
+  font-family: var(--mono); font-size: 0.78rem; color: var(--ink-2);
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 3px;
+  padding: 0.9rem 1rem;
+  display: grid; grid-template-columns: auto 1fr; gap: 0.45rem 1.1rem; align-items: baseline;
+}
+.repro b { color: var(--ink); font-weight: 700; white-space: nowrap; }
+.repro span.note { color: var(--ink-3); }
 
 /* ---------- tooltip ---------- */
 
@@ -325,7 +348,7 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
     <div class="summary-table">
       <div class="tbl-scroll">
         <table>
-          <caption class="fig-sub" style="padding-bottom:0.7rem">Findings, in the order they are presented in &sect;3. Confidence reflects both statistical strength and whether the test was pre-registered.</caption>
+          <caption class="fig-sub" style="padding-bottom:0.7rem">Findings, in the order they are presented in &sect;4. Confidence reflects both statistical strength and whether the test was pre-registered.</caption>
           <thead>
             <tr>
               <th style="width:3rem">ID</th>
@@ -389,6 +412,94 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
     <div class="col stack-tight">
       <div class="sec-head">
         <span class="sec-num">&sect;2</span>
+        <h2>Remediation</h2>
+      </div>
+      <p class="lede">
+        Recommendations first. The measurements behind each one are in &sect;4, and the
+        rotation test they refer to is in &sect;5.
+      </p>
+      <p>
+        Both requests below route the same ticket to the same four teams. Only the
+        <em class="term">criteria</em> map differs. The left-hand version is the one that
+        changed its answer when the categories were rotated between key slots.
+      </p>
+    </div>
+
+    <div class="prompts">
+      <div class="prompt bad">
+        <div class="prompt-head"><span class="tag">Unstable</span><span class="what">Numbered keys, no descriptions</span></div>
+<pre><span class="ln"><code><span class="p">{</span></span>
+<span class="ln">  <span class="k">"state"</span>: <span class="p">{</span></span>
+<span class="ln">    <span class="k">"subject"</span>: <span class="s">"Charged after cancelling + cannot sign in"</span>,</span>
+<span class="ln">    <span class="k">"body"</span>: <span class="s">"I cancelled my plan on the 3rd but I was still charged on the 5th. Also the app now says my password is wrong and the reset email never arrives."</span></span>
+<span class="ln">  <span class="p">}</span>,</span>
+<span class="ln">  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span>
+<span class="ln">  <span class="k">"questions"</span>: <span class="p">{</span></span>
+<span class="ln">    <span class="k">"route"</span>: <span class="p">{</span></span>
+<span class="ln">      <span class="k">"type"</span>: <span class="s">"choice"</span>,</span>
+<span class="ln">      <span class="k">"instructions"</span>: <span class="s">"Which team should own this ticket?"</span>,</span>
+<span class="ln">      <span class="k">"criteria"</span>: <span class="p">{</span></span>
+<span class="ln">        <span class="mark-bad"><span class="k">"queue1"</span>: <span class="s">"Billing and payments"</span>,</span></span>
+<span class="ln">        <span class="k">"queue2"</span>: <span class="s">"Technical support"</span>,</span>
+<span class="ln">        <span class="k">"queue3"</span>: <span class="s">"Account management"</span>,</span>
+<span class="ln">        <span class="k">"queue4"</span>: <span class="s">"General enquiries"</span></span>
+<span class="ln">      <span class="p">}</span></span>
+<span class="ln">    <span class="p">}</span></span>
+<span class="ln">  <span class="p">}</span></span>
+<span class="ln"><span class="p">}</span></code></span></pre>
+        <div class="prompt-notes">
+          <div><span class="mk">F4</span><span><code class="key">queue1</code> carries a prior worth up to 13.3&times; uniform on a low-signal question.</span></div>
+          <div><span class="mk">F5</span><span>Slot position is a second uncontrolled lever; the queue-to-team mapping lives in caller code, not in the request.</span></div>
+          <div><span class="mk">&sect;5</span><span>Moving billing to <code class="key">queue2</code> changed the answer, and produced the wrong team.</span></div>
+        </div>
+      </div>
+
+      <div class="prompt good">
+        <div class="prompt-head"><span class="tag">Stable</span><span class="what">Named keys, each described</span></div>
+<pre><span class="ln"><code><span class="p">{</span></span>
+<span class="ln">  <span class="k">"state"</span>: <span class="p">{</span></span>
+<span class="ln">    <span class="k">"subject"</span>: <span class="s">"Charged after cancelling + cannot sign in"</span>,</span>
+<span class="ln">    <span class="k">"body"</span>: <span class="s">"I cancelled my plan on the 3rd but I was still charged on the 5th. Also the app now says my password is wrong and the reset email never arrives."</span></span>
+<span class="ln">  <span class="p">}</span>,</span>
+<span class="ln">  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span>
+<span class="ln">  <span class="k">"questions"</span>: <span class="p">{</span></span>
+<span class="ln">    <span class="k">"route"</span>: <span class="p">{</span></span>
+<span class="ln">      <span class="k">"type"</span>: <span class="s">"choice"</span>,</span>
+<span class="ln">      <span class="k">"instructions"</span>: <span class="s">"Which team should own this ticket? Choose the team that owns the customer's primary problem."</span>,</span>
+<span class="ln">      <span class="k">"criteria"</span>: <span class="p">{</span></span>
+<span class="ln">        <span class="mark-good"><span class="k">"billing"</span>: <span class="s">"Billing and payments: incorrect charges, refunds, invoices, subscription cost."</span>,</span></span>
+<span class="ln">        <span class="k">"technical"</span>: <span class="s">"Technical support: the product is erroring, failing or behaving incorrectly."</span>,</span>
+<span class="ln">        <span class="k">"userAccess"</span>: <span class="s">"Account access: sign-in failures, passwords, profile and permissions."</span>,</span>
+<span class="ln">        <span class="k">"general"</span>: <span class="s">"General enquiries: anything that does not fit the other three."</span></span>
+<span class="ln">      <span class="p">}</span></span>
+<span class="ln">    <span class="p">}</span></span>
+<span class="ln">  <span class="p">}</span></span>
+<span class="ln"><span class="p">}</span></code></span></pre>
+        <div class="prompt-notes">
+          <div><span class="mk">F4</span><span>No key is a number, so neither the ordinal nor the literal-<code class="key">1</code> component applies.</span></div>
+          <div><span class="mk">F2</span><span>No key leads with <code class="key">a</code>, <code class="key">0</code> or <code class="key">1</code>. <code class="key">userAccess</code> is deliberately not <code class="key">account</code>.</span></div>
+          <div><span class="mk">&sect;5</span><span>Descriptions give the model content to compare rather than labels. Correct in 4/4 rotations, widest margin measured.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col stack-tight" style="margin-top:0.5rem"><h3>Guidance</h3></div>
+    <div class="guide">
+      <div class="guide-item"><span class="gid">R1</span><div><b>Do not use sequentially numbered option keys.</b><span class="d">The highest-magnitude failure mode, because two components stack. Applies to <code class="key">queue1</code>, <code class="key">tier1</code>, <code class="key">item1</code>, <code class="key">option1</code>.</span></div></div>
+      <div class="guide-item"><span class="gid">R2</span><div><b>Populate the description for every option.</b><span class="d">The single change that moved the rotation test in &sect;5 from unstable to stable. Bare <code class="key">null</code> criteria leave the key name as the only signal.</span></div></div>
+      <div class="guide-item"><span class="gid">R3</span><div><b>Avoid a leading <code class="key">a</code>, <code class="key">0</code> or <code class="key">1</code> on exactly one key.</b><span class="d">Worth roughly 2&times; uniform on a low-signal question. Harmless if no option has one, or if the favoured option is the one you would pick anyway.</span></div></div>
+      <div class="guide-item"><span class="gid">R4</span><div><b>Treat serialisation order as part of the request.</b><span class="d">Per F5, insertion order is an independent factor. If keys come from a database or a dictionary, that order is arbitrary and currently uncontrolled.</span></div></div>
+      <div class="guide-item"><span class="gid">R5</span><div><b>Where keys must be opaque, mitigate rather than rename.</b><span class="d">For retrieval candidates or document IDs there is no good name available. Rotate candidates across two calls and average, or move the identifier into the description.</span></div></div>
+      <div class="guide-item"><span class="gid">R6</span><div><b>Run the rotation test on your own traffic.</b><span class="d">Take a borderline case, rotate the options through the key slots, compare verdicts. Two API calls, and it converts this review's general result into your own exposure figure.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <div class="sec-head">
+        <span class="sec-num">&sect;3</span>
         <h2>System under test and method</h2>
       </div>
       <h3>The contract</h3>
@@ -415,17 +526,17 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
         <div class="fig-sub">Only the contents of the criteria map differ between conditions.</div>
       </div>
       <div class="chart-scroll">
-<pre style="margin:0;padding:0.95rem;background:var(--surface-sunk);border-radius:3px;font-family:var(--mono);font-size:0.73rem;line-height:1.7;overflow-x:auto"><code><span class="p">{</span>
-  <span class="k">"state"</span>: <span class="s">"There is no information here that favours any option."</span>,
-  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,
-  <span class="k">"questions"</span>: <span class="p">{</span>
-    <span class="k">"q0"</span>: <span class="p">{</span>
-      <span class="k">"type"</span>: <span class="s">"choice"</span>,
-      <span class="k">"instructions"</span>: <span class="s">"Pick one of the options. Nothing in the state favours any of them."</span>,
-      <span class="k">"criteria"</span>: <span class="p">{</span> <span class="k">"timber"</span>: null, <span class="k">"quiver"</span>: null, <span class="k">"kettle"</span>: null, <span class="p">… 13 more</span> <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
+<pre style="margin:0;padding:0.95rem;background:var(--surface-sunk);border-radius:3px;font-family:var(--mono);font-size:0.73rem;line-height:1.7;white-space:pre-wrap;overflow-wrap:break-word"><span class="ln"><code><span class="p">{</span></span>
+<span class="ln">  <span class="k">"state"</span>: <span class="s">"There is no information here that favours any option."</span>,</span>
+<span class="ln">  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,</span>
+<span class="ln">  <span class="k">"questions"</span>: <span class="p">{</span></span>
+<span class="ln">    <span class="k">"q0"</span>: <span class="p">{</span></span>
+<span class="ln">      <span class="k">"type"</span>: <span class="s">"choice"</span>,</span>
+<span class="ln">      <span class="k">"instructions"</span>: <span class="s">"Pick one of the options. Nothing in the state favours any of them."</span>,</span>
+<span class="ln">      <span class="k">"criteria"</span>: <span class="p">{</span> <span class="k">"timber"</span>: null, <span class="k">"quiver"</span>: null, <span class="k">"kettle"</span>: null, <span class="p">… 13 more</span> <span class="p">}</span></span>
+<span class="ln">    <span class="p">}</span></span>
+<span class="ln">  <span class="p">}</span></span>
+<span class="ln"><span class="p">}</span></code></span></pre>
       </div>
     </figure>
 
@@ -484,7 +595,7 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
   <div class="wrap stack">
     <div class="col">
       <div class="sec-head">
-        <span class="sec-num">&sect;3</span>
+        <span class="sec-num">&sect;4</span>
         <h2>Findings</h2>
       </div>
     </div>
@@ -787,7 +898,7 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
   <div class="wrap stack">
     <div class="col stack-tight">
       <div class="sec-head">
-        <span class="sec-num">&sect;4</span>
+        <span class="sec-num">&sect;5</span>
         <h2>Operational impact</h2>
       </div>
       <p>
@@ -844,100 +955,6 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
   </div>
 </section>
 
-<section>
-  <div class="wrap stack">
-    <div class="col stack-tight">
-      <div class="sec-head">
-        <span class="sec-num">&sect;5</span>
-        <h2>Remediation</h2>
-      </div>
-      <p>
-        Both requests below route the same ticket to the same four teams. Only the
-        <em class="term">criteria</em> map differs. The left-hand version is the one that
-        changed its answer under rotation.
-      </p>
-    </div>
-
-    <div class="prompts">
-      <div class="prompt bad">
-        <div class="prompt-head"><span class="tag">Unstable</span><span class="what">Numbered keys, no descriptions</span></div>
-<pre><code><span class="p">{</span>
-  <span class="k">"state"</span>: <span class="p">{</span>
-    <span class="k">"subject"</span>: <span class="s">"Charged after cancelling + cannot sign in"</span>,
-    <span class="k">"body"</span>: <span class="s">"I cancelled my plan on the 3rd but I was
-      still charged on the 5th. Also the app now says my
-      password is wrong and the reset email never arrives."</span>
-  <span class="p">}</span>,
-  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,
-  <span class="k">"questions"</span>: <span class="p">{</span>
-    <span class="k">"route"</span>: <span class="p">{</span>
-      <span class="k">"type"</span>: <span class="s">"choice"</span>,
-      <span class="k">"instructions"</span>: <span class="s">"Which team should own this ticket?"</span>,
-      <span class="k">"criteria"</span>: <span class="p">{</span>
-<span class="mark-bad">        <span class="k">"queue1"</span>: <span class="s">"Billing and payments"</span>,</span>
-        <span class="k">"queue2"</span>: <span class="s">"Technical support"</span>,
-        <span class="k">"queue3"</span>: <span class="s">"Account management"</span>,
-        <span class="k">"queue4"</span>: <span class="s">"General enquiries"</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-        <div class="prompt-notes">
-          <div><span class="mk">F4</span><span><code class="key">queue1</code> carries a prior worth up to 13.3&times; uniform on a low-signal question.</span></div>
-          <div><span class="mk">F5</span><span>Slot position is a second uncontrolled lever; the queue-to-team mapping lives in caller code, not in the request.</span></div>
-          <div><span class="mk">&sect;4</span><span>Moving billing to <code class="key">queue2</code> changed the answer, and produced the wrong team.</span></div>
-        </div>
-      </div>
-
-      <div class="prompt good">
-        <div class="prompt-head"><span class="tag">Stable</span><span class="what">Named keys, each described</span></div>
-<pre><code><span class="p">{</span>
-  <span class="k">"state"</span>: <span class="p">{</span>
-    <span class="k">"subject"</span>: <span class="s">"Charged after cancelling + cannot sign in"</span>,
-    <span class="k">"body"</span>: <span class="s">"I cancelled my plan on the 3rd but I was
-      still charged on the 5th. Also the app now says my
-      password is wrong and the reset email never arrives."</span>
-  <span class="p">}</span>,
-  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,
-  <span class="k">"questions"</span>: <span class="p">{</span>
-    <span class="k">"route"</span>: <span class="p">{</span>
-      <span class="k">"type"</span>: <span class="s">"choice"</span>,
-      <span class="k">"instructions"</span>: <span class="s">"Which team should own this ticket?
-        Choose the team that owns the customer's primary
-        problem."</span>,
-      <span class="k">"criteria"</span>: <span class="p">{</span>
-<span class="mark-good">        <span class="k">"billing"</span>: <span class="s">"Billing and payments: incorrect</span></span>
-<span class="mark-good">          <span class="s">charges, refunds, invoices, subscription cost."</span>,</span>
-        <span class="k">"technical"</span>: <span class="s">"Technical support: the product
-          is erroring, failing or behaving incorrectly."</span>,
-        <span class="k">"userAccess"</span>: <span class="s">"Account access: sign-in
-          failures, passwords, profile and permissions."</span>,
-        <span class="k">"general"</span>: <span class="s">"General enquiries: anything that
-          does not fit the other three."</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-        <div class="prompt-notes">
-          <div><span class="mk">F4</span><span>No key is a number, so neither the ordinal nor the literal-<code class="key">1</code> component applies.</span></div>
-          <div><span class="mk">F2</span><span>No key leads with <code class="key">a</code>, <code class="key">0</code> or <code class="key">1</code>. <code class="key">userAccess</code> is deliberately not <code class="key">account</code>.</span></div>
-          <div><span class="mk">&sect;4</span><span>Descriptions give the model content to compare rather than labels. Correct in 4/4 rotations, widest margin measured.</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col stack-tight" style="margin-top:0.5rem"><h3>Guidance</h3></div>
-    <div class="guide">
-      <div class="guide-item"><span class="gid">R1</span><div><b>Do not use sequentially numbered option keys.</b><span class="d">The highest-magnitude failure mode, because two components stack. Applies to <code class="key">queue1</code>, <code class="key">tier1</code>, <code class="key">item1</code>, <code class="key">option1</code>.</span></div></div>
-      <div class="guide-item"><span class="gid">R2</span><div><b>Populate the description for every option.</b><span class="d">The single change that moved the rotation test from unstable to stable. Bare <code class="key">null</code> criteria leave the key name as the only signal.</span></div></div>
-      <div class="guide-item"><span class="gid">R3</span><div><b>Avoid a leading <code class="key">a</code>, <code class="key">0</code> or <code class="key">1</code> on exactly one key.</b><span class="d">Worth roughly 2&times; uniform on a low-signal question. Harmless if no option has one, or if the favoured option is the one you would pick anyway.</span></div></div>
-      <div class="guide-item"><span class="gid">R4</span><div><b>Treat serialisation order as part of the request.</b><span class="d">Per F5, insertion order is an independent factor. If keys come from a database or a dictionary, that order is arbitrary and currently uncontrolled.</span></div></div>
-      <div class="guide-item"><span class="gid">R5</span><div><b>Where keys must be opaque, mitigate rather than rename.</b><span class="d">For retrieval candidates or document IDs there is no good name available. Rotate candidates across two calls and average, or move the identifier into the description.</span></div></div>
-      <div class="guide-item"><span class="gid">R6</span><div><b>Run the rotation test on your own traffic.</b><span class="d">Take a borderline case, rotate the options through the key slots, compare verdicts. Two API calls, and it converts this review's general result into your own exposure figure.</span></div></div>
-    </div>
-  </div>
-</section>
-
 <section class="validity">
   <div class="wrap stack">
     <div class="col">
@@ -990,10 +1007,10 @@ code.key, code.k2 { font-family: var(--mono); font-size: 0.85em; background: var
     </div>
     <div class="col">
       <div class="repro">
-<b>npm run collect</b>   &rarr; 150 questions, 15 requests &rarr; data/raw.ndjson<br>
-<b>npm run followup</b>  &rarr; 123 questions, 13 requests &rarr; data/followup.ndjson<br>
-<b>npm run analyse</b>   &rarr; RESULTS.md      <span class="p">(pre-registered tests)</span><br>
-<b>npm run explore</b>   &rarr; EXPLORATORY.md  <span class="p">(post hoc, F7)</span>
+        <b>npm run collect</b><span>150 questions, 15 requests &rarr; data/raw.ndjson</span>
+        <b>npm run followup</b><span>123 questions, 13 requests &rarr; data/followup.ndjson</span>
+        <b>npm run analyse</b><span>RESULTS.md <span class="note">&mdash; the pre-registered tests</span></span>
+        <b>npm run explore</b><span>EXPLORATORY.md <span class="note">&mdash; post hoc, F7</span></span>
       </div>
     </div>
     <div class="col stack-tight">
