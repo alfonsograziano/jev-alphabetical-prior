@@ -1,0 +1,1080 @@
+<title>The Thumb on the Scale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap">
+
+<style>
+:root {
+  --ground:        #F5F4F1;
+  --surface:       #FFFFFF;
+  --surface-sunk:  #EDEBE6;
+  --ink:           #17191C;
+  --ink-2:         #555C64;
+  --ink-3:         #8A9099;
+  --rule:          #DDD9D2;
+  --rule-strong:   #C3BEB5;
+  --over:          #BF3B1B;
+  --over-soft:     #F3DCD4;
+  --under:         #0369A1;
+  --under-soft:    #D6E6F1;
+  --fair:          #8A9099;
+  --flag:          #8A5A00;
+  --flag-soft:     #F7E9CC;
+
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --measure: 34rem;
+  --wide: 56rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:       #121417;
+    --surface:      #1A1D21;
+    --surface-sunk: #0D0F12;
+    --ink:          #F1F2F3;
+    --ink-2:        #A7AEB6;
+    --ink-3:        #767D86;
+    --rule:         #2C3036;
+    --rule-strong:  #3E444C;
+    --over:         #E0603A;
+    --over-soft:    #45241A;
+    --under:        #3D9BD6;
+    --under-soft:   #12303F;
+    --fair:         #767D86;
+    --flag:         #D9A441;
+    --flag-soft:    #3A2E15;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:       #121417;
+  --surface:      #1A1D21;
+  --surface-sunk: #0D0F12;
+  --ink:          #F1F2F3;
+  --ink-2:        #A7AEB6;
+  --ink-3:        #767D86;
+  --rule:         #2C3036;
+  --rule-strong:  #3E444C;
+  --over:         #E0603A;
+  --over-soft:    #45241A;
+  --under:        #3D9BD6;
+  --under-soft:   #12303F;
+  --fair:         #767D86;
+  --flag:         #D9A441;
+  --flag-soft:    #3A2E15;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding-inline: 20px;
+  padding-block: 0;
+}
+
+.col { max-width: var(--measure); }
+
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.12; }
+h1 { font-size: clamp(2.5rem, 7.5vw, 4.25rem); font-weight: 600; letter-spacing: -0.022em; }
+h2 { font-size: clamp(1.65rem, 4.2vw, 2.3rem); font-weight: 600; letter-spacing: -0.014em; }
+h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.005em; }
+p { margin: 0; }
+
+.eyebrow {
+  font-family: var(--body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+}
+.hero-inner { padding-block: clamp(3rem, 9vw, 5.5rem) clamp(2.5rem, 6vw, 4rem); display: grid; gap: 1.75rem; }
+.hero h1 em { font-style: italic; color: var(--over); }
+.hero .standfirst { font-size: clamp(1.1rem, 2.6vw, 1.3rem); color: var(--ink-2); max-width: 38rem; line-height: 1.55; }
+
+.byline {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+  font-size: 0.8rem; color: var(--ink-3);
+  border-top: 1px solid var(--rule); padding-top: 1.1rem;
+}
+.byline span { display: inline-flex; gap: 0.4rem; }
+.byline b { color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ---------- sections ---------- */
+
+section { padding-block: clamp(2.75rem, 7vw, 4.5rem); }
+section + section { border-top: 1px solid var(--rule); }
+.stack { display: grid; gap: 1.5rem; }
+.stack-tight { display: grid; gap: 0.9rem; }
+
+.lede { font-size: 1.2rem; color: var(--ink-2); line-height: 1.55; }
+
+strong.hl { font-weight: 700; color: var(--ink); background: var(--over-soft); padding: 0.05em 0.28em; border-radius: 2px; }
+
+/* ---------- figures ---------- */
+
+figure {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1.5rem 1.25rem 1.1rem;
+  display: grid;
+  gap: 1rem;
+}
+figcaption { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; border-top: 1px solid var(--rule); padding-top: 0.85rem; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.fig-head { display: grid; gap: 0.3rem; }
+.fig-title { font-family: var(--display); font-size: 1.1rem; font-weight: 600; }
+.fig-sub { font-size: 0.82rem; color: var(--ink-3); }
+.chart-scroll { overflow-x: auto; }
+svg { display: block; max-width: 100%; height: auto; }
+svg text { font-family: var(--body); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; font-size: 0.78rem; color: var(--ink-2); }
+.legend i { width: 0.7rem; height: 0.7rem; border-radius: 2px; display: inline-block; margin-right: 0.4rem; vertical-align: -1px; }
+.legend .dash { width: 0.9rem; height: 0; border-top: 2px dashed var(--fair); display: inline-block; margin-right: 0.4rem; vertical-align: 3px; }
+
+/* ---------- pull number ---------- */
+
+.pull {
+  display: grid; gap: 0.4rem;
+  border-left: 3px solid var(--over);
+  padding: 0.2rem 0 0.2rem 1.2rem;
+}
+.pull .n { font-family: var(--display); font-size: clamp(3rem, 11vw, 5rem); font-weight: 700; line-height: 0.95; color: var(--over); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.pull .t { font-size: 0.95rem; color: var(--ink-2); max-width: 26rem; }
+/* ---------- prompt comparison ---------- */
+
+.prompts { display: grid; gap: 1.1rem; }
+@media (min-width: 60rem) { .prompts { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+.prompt {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.prompt-head {
+  display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.prompt-head .tag {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.18rem 0.45rem; border-radius: 2px;
+}
+.prompt.bad .tag { background: var(--over-soft); color: var(--over); }
+.prompt.good .tag { background: var(--under-soft); color: var(--under); }
+.prompt-head .what { font-family: var(--display); font-size: 1.02rem; font-weight: 600; }
+.prompt pre {
+  margin: 0; padding: 1.1rem; overflow-x: auto;
+  background: var(--surface-sunk);
+  font-family: var(--mono); font-size: 0.76rem; line-height: 1.7;
+  tab-size: 2;
+}
+.prompt code { font-family: inherit; }
+.k { color: var(--under); }
+.s { color: var(--ink-2); }
+.p { color: var(--ink-3); }
+.bad-line { background: var(--over-soft); display: inline-block; width: 100%; border-radius: 2px; }
+.good-line { background: var(--under-soft); display: inline-block; width: 100%; border-radius: 2px; }
+.prompt-notes { padding: 1rem 1.1rem 1.15rem; display: grid; gap: 0.55rem; font-size: 0.87rem; color: var(--ink-2); border-top: 1px solid var(--rule); }
+.prompt-notes div { display: grid; grid-template-columns: 1.1rem 1fr; gap: 0.5rem; align-items: start; }
+.prompt-notes .mk { font-weight: 700; line-height: 1.5; }
+.prompt.bad .mk { color: var(--over); }
+.prompt.good .mk { color: var(--under); }
+
+/* ---------- table ---------- */
+
+.tbl-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; min-width: 30rem; }
+caption { text-align: left; font-size: 0.82rem; color: var(--ink-3); padding-bottom: 0.6rem; }
+th, td { text-align: left; padding: 0.6rem 0.8rem 0.6rem 0; border-bottom: 1px solid var(--rule); }
+th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 700; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; padding-right: 0.8rem; }
+tbody tr:last-child td { border-bottom: none; }
+code.key { font-family: var(--mono); font-size: 0.85em; background: var(--surface-sunk); padding: 0.1em 0.35em; border-radius: 2px; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em;
+  padding: 0.16rem 0.5rem; border-radius: 2px; white-space: nowrap;
+}
+.chip.ok { background: var(--under-soft); color: var(--under); }
+.chip.no { background: var(--over-soft); color: var(--over); }
+.chip::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; }
+
+/* ---------- rules panel ---------- */
+
+.rules { display: grid; gap: 0.5rem; counter-reset: r; }
+.rule-item {
+  display: grid; grid-template-columns: 2rem 1fr; gap: 0.9rem; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 3px;
+  padding: 1rem 1.15rem;
+}
+.rule-item::before {
+  counter-increment: r; content: counter(r);
+  font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--over);
+  font-variant-numeric: tabular-nums;
+}
+.rule-item b { display: block; font-size: 1rem; margin-bottom: 0.15rem; }
+.rule-item span { font-size: 0.92rem; color: var(--ink-2); }
+
+/* ---------- method / caveats ---------- */
+
+.method { background: var(--surface-sunk); border-top: 1px solid var(--rule); }
+.method .grid { display: grid; gap: 1.6rem; }
+@media (min-width: 48rem) { .method .grid { grid-template-columns: repeat(3, 1fr); } }
+.method h3 { font-size: 0.95rem; margin-bottom: 0.45rem; }
+.method p, .method li { font-size: 0.87rem; color: var(--ink-2); line-height: 1.6; }
+.method ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.45rem; }
+
+.stats-strip {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  font-family: var(--mono); font-size: 0.72rem; color: var(--ink-3);
+}
+.stats-strip span { background: var(--surface-sunk); border: 1px solid var(--rule); padding: 0.2rem 0.5rem; border-radius: 2px; white-space: nowrap; }
+
+/* ---------- tooltip ---------- */
+
+#tip {
+  position: fixed; z-index: 50; pointer-events: none; opacity: 0;
+  transition: opacity 0.1s ease;
+  background: var(--ink); color: var(--ground);
+  font-size: 0.78rem; line-height: 1.45;
+  padding: 0.45rem 0.6rem; border-radius: 3px;
+  max-width: 16rem; box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+}
+#tip b { font-variant-numeric: tabular-nums; }
+.hitbox { cursor: default; }
+.hitbox:focus-visible { outline: 2px solid var(--over); outline-offset: 1px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Jev &middot; measured behaviour</p>
+    <h1>Sixteen identical options.<br>One of them gets <em>83%</em>.</h1>
+    <p class="standfirst">
+      Ask Jev to choose between options it has no reason to prefer, and it does not
+      shrug. It has a favourite &mdash; and the favourite is decided by what you
+      happened to name things.
+    </p>
+    <div class="byline">
+      <span>Model <b>jev&#8209;1.13.0</b></span>
+      <span>Option sets tested <b>273</b></span>
+      <span>Pre&#8209;registered <b>before data</b></span>
+      <span><b>19 September 2026</b></span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">The question</p>
+      <h2>What breaks the tie?</h2>
+      <p class="lede">
+        A Jev <b>choice</b> question hands the model a list of options and asks it to
+        pick one. Most of the time the content decides. But plenty of real questions
+        are close calls, and something has to break the tie.
+      </p>
+      <p>
+        We wanted to know what that something is. So we removed the content entirely.
+        Every question in this experiment says the same thing: <i>here are sixteen
+        options, nothing favours any of them, pick one.</i>
+      </p>
+      <p>
+        With sixteen interchangeable options and no information, a well-behaved model
+        should spread itself evenly &mdash; <b>6.25% each</b>, one in sixteen. Anything
+        else is a preference the model brought with it. And since we stripped out
+        everything else, the only thing left that could carry a preference is the
+        <b>names</b> of the options.
+      </p>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">Every question had this shape</div>
+        <div class="fig-sub">The state says there is nothing to go on. Only the option names change between tests.</div>
+      </div>
+      <div class="chart-scroll">
+<pre style="margin:0;padding:1rem;background:var(--surface-sunk);border-radius:3px;font-family:var(--mono);font-size:0.76rem;line-height:1.7;overflow-x:auto"><code><span class="p">{</span>
+  <span class="k">"state"</span>: <span class="s">"There is no information here that favours any option."</span>,
+  <span class="k">"questions"</span>: <span class="p">{</span>
+    <span class="k">"q0"</span>: <span class="p">{</span>
+      <span class="k">"type"</span>: <span class="s">"choice"</span>,
+      <span class="k">"instructions"</span>: <span class="s">"Pick one. Nothing in the state favours any of them."</span>,
+      <span class="k">"criteria"</span>: <span class="p">{</span> <span class="k">"timber"</span>: null, <span class="k">"quiver"</span>: null, <span class="k">"kettle"</span>: null, <span class="p">…</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+      </div>
+      <figcaption>
+        <b>The one control that matters.</b> Alphabetical order and the order you write
+        options in are easy to confuse. So in every test the writing order was shuffled
+        independently of the alphabetical order &mdash; which is what lets us tell the
+        two apart at all.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">Finding one</p>
+      <h2>There is a favourite, and it depends on the names</h2>
+      <p>
+        We ran five sets of thirty questions, each using a different style of option
+        name. If names were irrelevant, every bar below would sit on the dashed line.
+        None of them do, and the spread between them is enormous.
+      </p>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">How much the top option takes, by naming style</div>
+        <div class="fig-sub">Mean share won by the alphabetically&#8209;first option. 30 questions per row, 16 options each.</div>
+      </div>
+      <div class="chart-scroll"><div id="c1"></div></div>
+      <div class="legend">
+        <span><i style="background:var(--over)"></i>Share won by the top option</span>
+        <span><span class="dash"></span>Fair share &mdash; 6.25%</span>
+      </div>
+      <figcaption>
+        Numbered options (<code class="key">item7</code>&hellip;<code class="key">item22</code>) hand the
+        top option <b>five times</b> its fair share. Mixed&#8209;case names show
+        <b>no effect at all</b>. Same model, same question, same number of options.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">Finding two</p>
+      <h2>It is not alphabetical order. It is the letter <em style="font-family:var(--mono);font-style:normal;color:var(--over)">a</em>.</h2>
+      <p>
+        The obvious explanation is that the model sorts your list and likes whatever
+        lands on top. That explanation is wrong, and one comparison kills it.
+      </p>
+      <p>
+        Every list has an option that comes first alphabetically. Sometimes that option
+        starts with <b>a</b> &mdash; <i>amber</i>, <i>anchor</i>. Sometimes the list has
+        no a&#8209;word and the winner starts with something later &mdash; <i>kettle</i>,
+        <i>silver</i>. Both are equally first. If sorting were the mechanism, both should
+        get the same boost.
+      </p>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">Being first buys nothing. Being <span style="font-family:var(--mono)">a</span> buys double.</div>
+        <div class="fig-sub">The alphabetically&#8209;first option in 120 word&#8209;based questions, split by its own first letter.</div>
+      </div>
+      <div class="chart-scroll"><div id="c2"></div></div>
+      <figcaption>
+        Options starting with <b>a</b> take <b>2.04&times;</b> their fair share. Options
+        that come first but start with anything later take <b>1.12&times;</b> &mdash; and
+        that range crosses 1.00, meaning it is <b>indistinguishable from no effect at
+        all</b>. Horizontal lines show the 95% confidence range.
+      </figcaption>
+    </figure>
+
+    <div class="col stack-tight">
+      <p>
+        This is the whole result in one picture. A sorting rule is <i>relative</i>:
+        whoever happens to be earliest in this particular list wins. A preference for
+        the letter <b>a</b> is <i>absolute</i>: only names that actually start with
+        <b>a</b> win. The data says absolute.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">Finding three</p>
+      <h2>Nothing is being sorted at all</h2>
+      <p>
+        There is a second, cleaner test. If a computer were sorting your option list,
+        names beginning with a digit would land dead first &mdash; that is simply how
+        sorting works in code. So digit&#8209;led names should win most often.
+      </p>
+      <p>They win <i>least</i> often. By a wide margin.</p>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">What each style of name is worth</div>
+        <div class="fig-sub">480 options across 30 questions, each question mixing all four styles.</div>
+      </div>
+      <div class="chart-scroll"><div id="c3"></div></div>
+      <div class="legend">
+        <span><i style="background:var(--over)"></i>More than its fair share</span>
+        <span><i style="background:var(--under)"></i>Less than its fair share</span>
+        <span><span class="dash"></span>Fair share</span>
+      </div>
+      <figcaption>
+        Digit&#8209;led names such as <code class="key">3hollow</code> sort first in code and
+        collect <b>0.63&times;</b> their fair share &mdash; the least of any style.
+        Capitalised names collect the most at <b>1.41&times;</b>. No sorting algorithm
+        behaves like this. Something that <i>reads</i> the names does.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">Finding four &middot; the one that will bite you</p>
+      <h2>Numbered options are a trap</h2>
+      <p>
+        The letter <b>a</b> is worth about double. Numbers are worth far more, because
+        two separate effects stack on top of each other.
+      </p>
+    </div>
+
+    <div class="col">
+      <div class="pull">
+        <div class="n">83%</div>
+        <div class="t">
+          of the entire distribution goes to <code class="key">item1</code> when the
+          options are <code class="key">item1</code> through <code class="key">item16</code>
+          and the question is a close call. Its fair share is 6.25%.
+        </div>
+      </div>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">A numbered list is not really a choice</div>
+        <div class="fig-sub">Average distribution across questions whose options ran from 1 to 16.</div>
+      </div>
+      <div class="chart-scroll"><div id="c4"></div></div>
+      <figcaption>
+        Everything from <code class="key">item2</code> down is at or below <b>2%</b>.
+        You have not built a sixteen&#8209;way choice; you have built a near&#8209;certain
+        vote for <code class="key">item1</code> with a rounding error attached.
+      </figcaption>
+    </figure>
+
+    <div class="col stack-tight">
+      <h3>Why two effects, not one</h3>
+      <p>
+        Not all our numbered lists started at 1 &mdash; some ran from 2, some from 3.
+        Splitting them apart separates the two things going on.
+      </p>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">The smallest number wins twice over</div>
+        <div class="fig-sub">Share taken by the lowest-numbered option, by where the run begins.</div>
+      </div>
+      <div class="chart-scroll"><div id="c5"></div></div>
+      <figcaption>
+        Lists starting at 2 and at 3 behave identically (<b>27%</b> each), so this is not
+        a general liking for small numbers. It is a <b>comparison</b> &mdash; the lowest
+        number present wins &mdash; plus a separate <b>bonus for the literal digit 1</b>,
+        worth roughly <b>3&times;</b> again on top.
+      </figcaption>
+    </figure>
+
+    <div class="col stack-tight">
+      <p>
+        The same shape turns up in random IDs. Among UUID options, the ones beginning
+        with <b>0</b> take <b>2.39&times;</b> their fair share and the ones beginning with
+        <b>1</b> take <b>1.22&times;</b>; everything else sits at or below fair. Jev is
+        reaching for whatever token looks like <i>the start of a familiar sequence</i>
+        &mdash; the letter <b>a</b>, the digits <b>0</b> and <b>1</b>, the lowest number
+        in a run.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">A correction</p>
+      <h2>Why earlier work reported something different</h2>
+      <p>
+        An earlier exploratory pass on this model reported that the
+        alphabetically&#8209;first option takes <b>80%</b> of the mass &mdash; far more
+        than the modest effect we found on ordinary words. That finding rested on three
+        option sets.
+      </p>
+      <p>
+        It was not wrong. We sent those exact three sets again and reproduced the numbers
+        almost precisely (0.85, 0.73, 0.82 against the reported 0.83, 0.73, 0.80). The
+        problem was what they were made of: names like <code class="key">aaa</code>,
+        <code class="key">bbb</code> and <code class="key">tag_a</code>,
+        <code class="key">tag_b</code> &mdash; names that differ <i>only</i> by one letter
+        of the alphabet.
+      </p>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">Name style matters more than list length</div>
+        <div class="fig-sub">30 questions in each of the four cells. Share won by the alphabetically-first option, as a multiple of fair.</div>
+      </div>
+      <div class="chart-scroll"><div id="c6"></div></div>
+      <div class="legend">
+        <span><i style="background:var(--over)"></i>Bare letters &mdash; <code class="key" style="background:none;padding:0">aaa</code>, <code class="key" style="background:none;padding:0">bbb</code></span>
+        <span><i style="background:var(--under)"></i>Real words &mdash; <code class="key" style="background:none;padding:0">amber</code>, <code class="key" style="background:none;padding:0">basket</code></span>
+        <span><span class="dash"></span>Fair share</span>
+      </div>
+      <figcaption>
+        Both factors matter and they compound, but style is the bigger term. The earlier
+        pass had picked, by chance, exactly the names that maximise the effect &mdash; and
+        generalised from three of them. <b>This is what a sample size of three buys you.</b>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">Does it matter in practice?</p>
+      <h2>We flipped a real decision</h2>
+      <p>
+        Everything above uses questions with no content, which is the worst case by
+        design. So we tried a genuine one: a support ticket where a customer was charged
+        after cancelling <i>and</i> cannot sign in. Billing or technical? A real judgement
+        call.
+      </p>
+      <p>
+        We asked the same question four times, rotating which category sat in which key
+        slot. A system reading the <b>content</b> gives the same answer all four times.
+      </p>
+    </div>
+
+    <figure>
+      <div class="fig-head">
+        <div class="fig-title">Same ticket, same categories, different key names</div>
+        <div class="fig-sub">Four rotations each. &ldquo;Stable&rdquo; means the answer did not depend on where the category was placed.</div>
+      </div>
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>How the options were named</th>
+              <th>Behaviour</th>
+              <th class="num">Correct</th>
+              <th class="num">Winning margin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="key">queue1</code> &hellip; <code class="key">queue4</code></td>
+              <td><span class="chip no">Flipped</span></td>
+              <td class="num">3 of 4</td>
+              <td class="num">0.18</td>
+            </tr>
+            <tr>
+              <td><code class="key">a7f</code>, <code class="key">k2m</code>, <code class="key">r9q</code>, <code class="key">t4x</code></td>
+              <td><span class="chip no">Flipped</span></td>
+              <td class="num">3 of 4</td>
+              <td class="num">0.13</td>
+            </tr>
+            <tr>
+              <td><code class="key">billing</code>, <code class="key">technical</code>, &hellip;</td>
+              <td><span class="chip ok">Stable</span></td>
+              <td class="num">4 of 4</td>
+              <td class="num">0.21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <figcaption>
+        Numbered keys and opaque IDs each produced the <b>wrong team</b> on one of four
+        rotations &mdash; the answer followed the slot, not the ticket. Descriptive keys
+        were right every time, with the widest margin of the three.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack">
+    <div class="col stack-tight">
+      <p class="eyebrow">What to do about it</p>
+      <h2>The same request, written badly and written well</h2>
+      <p>
+        Both of these route the identical support ticket into the identical four teams.
+        Only the option names differ. The one on the left flipped its answer when we
+        rotated the categories; the one on the right did not.
+      </p>
+    </div>
+
+    <div class="prompts">
+      <div class="prompt bad">
+        <div class="prompt-head">
+          <span class="tag">Don't</span>
+          <span class="what">Numbered queues, no descriptions</span>
+        </div>
+<pre><code><span class="p">{</span>
+  <span class="k">"state"</span>: <span class="p">{</span>
+    <span class="k">"subject"</span>: <span class="s">"Charged after cancelling + cannot sign in"</span>,
+    <span class="k">"body"</span>: <span class="s">"I cancelled my plan on the 3rd but I was
+      still charged on the 5th. Also the app now says my
+      password is wrong and the reset email never arrives."</span>
+  <span class="p">}</span>,
+  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,
+  <span class="k">"questions"</span>: <span class="p">{</span>
+    <span class="k">"route"</span>: <span class="p">{</span>
+      <span class="k">"type"</span>: <span class="s">"choice"</span>,
+      <span class="k">"instructions"</span>: <span class="s">"Which team should own this ticket?"</span>,
+      <span class="k">"criteria"</span>: <span class="p">{</span>
+<span class="bad-line">        <span class="k">"queue1"</span>: <span class="s">"Billing and payments"</span>,</span>
+        <span class="k">"queue2"</span>: <span class="s">"Technical support"</span>,
+        <span class="k">"queue3"</span>: <span class="s">"Account management"</span>,
+        <span class="k">"queue4"</span>: <span class="s">"General enquiries"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+        <div class="prompt-notes">
+          <div><span class="mk">&times;</span><span><b>queue1</b> carries a free head start worth up to 13&times; on a close question.</span></div>
+          <div><span class="mk">&times;</span><span>The meaning of each queue lives in your code, not in the request. The model is choosing a <i>number</i>.</span></div>
+          <div><span class="mk">&times;</span><span>Move billing to <b>queue2</b> and the answer changes. We measured it picking the wrong team.</span></div>
+        </div>
+      </div>
+
+      <div class="prompt good">
+        <div class="prompt-head">
+          <span class="tag">Do</span>
+          <span class="what">Named teams, each described</span>
+        </div>
+<pre><code><span class="p">{</span>
+  <span class="k">"state"</span>: <span class="p">{</span>
+    <span class="k">"subject"</span>: <span class="s">"Charged after cancelling + cannot sign in"</span>,
+    <span class="k">"body"</span>: <span class="s">"I cancelled my plan on the 3rd but I was
+      still charged on the 5th. Also the app now says my
+      password is wrong and the reset email never arrives."</span>
+  <span class="p">}</span>,
+  <span class="k">"model"</span>: <span class="s">"jev-latest"</span>,
+  <span class="k">"questions"</span>: <span class="p">{</span>
+    <span class="k">"route"</span>: <span class="p">{</span>
+      <span class="k">"type"</span>: <span class="s">"choice"</span>,
+      <span class="k">"instructions"</span>: <span class="s">"Which team should own this ticket?
+        Choose the team that owns the customer's primary
+        problem."</span>,
+      <span class="k">"criteria"</span>: <span class="p">{</span>
+<span class="good-line">        <span class="k">"billing"</span>: <span class="s">"Billing and payments: incorrect</span></span>
+<span class="good-line">          <span class="s">charges, refunds, invoices, subscription cost."</span>,</span>
+        <span class="k">"technical"</span>: <span class="s">"Technical support: the product
+          is erroring, failing or behaving incorrectly."</span>,
+        <span class="k">"userAccess"</span>: <span class="s">"Account access: sign-in
+          failures, passwords, profile and permissions."</span>,
+        <span class="k">"general"</span>: <span class="s">"General enquiries: anything that
+          does not fit the other three."</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+        <div class="prompt-notes">
+          <div><span class="mk">&check;</span><span>Keys <b>name</b> the team instead of indexing it, so there is no head start to win.</span></div>
+          <div><span class="mk">&check;</span><span>Every option has a description, which gives the model content to compare rather than labels.</span></div>
+          <div><span class="mk">&check;</span><span>No key leads with <b>a</b>, <b>0</b>, <b>1</b> or a run's lowest number.</span></div>
+          <div><span class="mk">&check;</span><span>Answered <b>billing</b> on all four rotations, with the widest margin we measured.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col stack-tight" style="margin-top:0.6rem">
+      <h3>Five rules</h3>
+    </div>
+    <div class="rules">
+      <div class="rule-item">
+        <div><b>Never number your options.</b><span><code class="key">queue1</code>, <code class="key">tier1</code>, <code class="key">item1</code> is the single worst pattern, because two effects stack there.</span></div>
+      </div>
+      <div class="rule-item">
+        <div><b>Give every option a description.</b><span>This is what moves the decision from the label to the content. It was the difference between a stable answer and a flipping one.</span></div>
+      </div>
+      <div class="rule-item">
+        <div><b>Don't let one key lead with <span style="font-family:var(--mono)">a</span>, <span style="font-family:var(--mono)">0</span> or <span style="font-family:var(--mono)">1</span>.</b><span>Unless you actually want that option favoured on close calls.</span></div>
+      </div>
+      <div class="rule-item">
+        <div><b>If your keys must be opaque, naming can't save you.</b><span>For document IDs or retrieval candidates, rotate the candidates across two calls and average, or move the identifier into the description.</span></div>
+      </div>
+      <div class="rule-item">
+        <div><b>Test it on your own traffic.</b><span>Take a borderline case and rotate your options through the key slots. If the verdict moves, your naming is doing the deciding. It costs two API calls.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="method">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <h3>How it was run</h3>
+        <p>
+          273 option sets in total: 150 for the main experiment (five naming styles,
+          thirty questions each, sixteen options apiece) and 123 for a follow&#8209;up
+          that tested why earlier results differed. Every hypothesis and every
+          statistical test was written down and committed <b>before</b> any data was
+          collected.
+        </p>
+        <p style="margin-top:0.7rem">
+          Jev returns identical numbers for identical requests, so repeating a question
+          tells you nothing. The thing being counted is <i>distinct option sets</i>, not
+          API calls &mdash; which is why thirty of them is the meaningful number, not
+          thirty repeats of one.
+        </p>
+      </div>
+      <div>
+        <h3>The statistics</h3>
+        <p>
+          Exact binomial tests against a one&#8209;in&#8209;sixteen null, Clopper&#8209;Pearson
+          intervals, and Holm correction across six hypotheses. Thirty sets per group
+          gives better than 99% power against the effect sizes reported here.
+        </p>
+        <div class="stats-strip" style="margin-top:0.7rem">
+          <span>letter a vs later: p = 2.3e&#8209;5</span>
+          <span>name style: p = 3.0e&#8209;8</span>
+          <span>digit 1 bonus: p &lt; 1e&#8209;12</span>
+          <span>numeric vs lexicographic: p &lt; 1e&#8209;12</span>
+        </div>
+      </div>
+      <div>
+        <h3>What this doesn't show</h3>
+        <ul>
+          <li>One model version on one day. The sizes belong to that snapshot.</li>
+          <li>Most measurements use questions with <i>no</i> content, which is the worst case on purpose. Where options carry real meaning, meaning usually wins.</li>
+          <li>The <b>a</b>&#8209;and&#8209;<b>1</b> explanation came from looking at the data after the fact. It fits everything we measured, but it deserves its own pre&#8209;registered run before anyone calls it settled.</li>
+          <li>We tested one ticket in the practical section, not a traffic sample. Rule five is how you find out what it costs you.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  var NS = "http://www.w3.org/2000/svg";
+  var tip = document.getElementById("tip");
+
+  function el(name, attrs) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs[k] !== null && attrs[k] !== undefined) n.setAttribute(k, String(attrs[k]));
+    return n;
+  }
+  function txt(s, attrs) { var t = el("text", attrs); t.textContent = s; return t; }
+
+  /* A bar with square root and rounded data-end, so the end reads as the value. */
+  function hBar(x0, y, w, h, r) {
+    r = Math.min(r, Math.max(0, w));
+    if (w <= 0.5) return "M" + x0 + "," + y + "h0.5v" + h + "h-0.5z";
+    return "M" + x0 + "," + y + "h" + (w - r) + "a" + r + "," + r + " 0 0 1 " + r + "," + r +
+           "v" + (h - 2 * r) + "a" + r + "," + r + " 0 0 1 " + (-r) + "," + r + "h" + (-(w - r)) + "z";
+  }
+  function vBar(x, yTop, w, h, r) {
+    r = Math.min(r, Math.max(0, h));
+    if (h <= 0.5) return "M" + x + "," + (yTop + h) + "v-0.5h" + w + "v0.5z";
+    return "M" + x + "," + (yTop + h) + "v" + (-(h - r)) + "a" + r + "," + r + " 0 0 1 " + r + "," + (-r) +
+           "h" + (w - 2 * r) + "a" + r + "," + r + " 0 0 1 " + r + "," + r + "v" + (h - r) + "z";
+  }
+
+  function bindTip(node, html) {
+    node.classList.add("hitbox");
+    node.setAttribute("tabindex", "0");
+    function show(e) {
+      tip.innerHTML = html;
+      tip.style.opacity = "1";
+      var x, y;
+      if (e && e.clientX !== undefined && e.type !== "focus") { x = e.clientX; y = e.clientY; }
+      else { var b = node.getBoundingClientRect(); x = b.left + b.width / 2; y = b.top; }
+      var r = tip.getBoundingClientRect();
+      tip.style.left = Math.max(8, Math.min(window.innerWidth - r.width - 8, x - r.width / 2)) + "px";
+      tip.style.top = Math.max(8, y - r.height - 12) + "px";
+    }
+    function hide() { tip.style.opacity = "0"; }
+    node.addEventListener("mouseenter", show);
+    node.addEventListener("mousemove", show);
+    node.addEventListener("mouseleave", hide);
+    node.addEventListener("focus", show);
+    node.addEventListener("blur", hide);
+  }
+
+  var C = {
+    over: "var(--over)", under: "var(--under)", fair: "var(--fair)",
+    ink: "var(--ink)", ink2: "var(--ink-2)", ink3: "var(--ink-3)",
+    rule: "var(--rule)", surface: "var(--surface)"
+  };
+
+  /* ---- horizontal bars, single series, coloured by polarity around a reference ---- */
+  function horizontal(mount, opts) {
+    var rows = opts.rows, ref = opts.ref, max = opts.max;
+    var W = 820, padL = opts.padL || 168, padR = 78, padT = 34, padB = 30;
+    var barH = opts.barH || 26, gap = opts.gap || 14;
+    var plotW = W - padL - padR;
+    var H = padT + rows.length * (barH + gap) - gap + padB;
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": opts.alt });
+    var sx = function (v) { return padL + (v / max) * plotW; };
+
+    /* axis ticks, recessive */
+    (opts.ticks || []).forEach(function (t) {
+      svg.appendChild(el("line", { x1: sx(t), y1: padT - 10, x2: sx(t), y2: H - padB + 2, stroke: C.rule, "stroke-width": 1 }));
+      svg.appendChild(txt(opts.fmtTick(t), { x: sx(t), y: H - padB + 18, fill: C.ink3, "font-size": 11, "text-anchor": "middle" }));
+    });
+
+    rows.forEach(function (r, i) {
+      var y = padT + i * (barH + gap);
+      var colour = r.value >= ref ? C.over : C.under;
+      svg.appendChild(txt(r.label, { x: padL - 14, y: y + barH / 2 + 5, fill: C.ink, "font-size": 14, "text-anchor": "end", "font-weight": r.bold ? 700 : 400 }));
+      if (r.sub) svg.appendChild(txt(r.sub, { x: padL - 14, y: y + barH / 2 + 19, fill: C.ink3, "font-size": 10.5, "text-anchor": "end" }));
+
+      var w = Math.max(0, sx(r.value) - padL);
+      var bar = el("path", { d: hBar(padL, y, w, barH, 4), fill: colour });
+      svg.appendChild(bar);
+
+      /* 95% interval, drawn over the bar with a surface-coloured ring for legibility */
+      if (r.lo !== undefined) {
+        var cy = y + barH / 2;
+        svg.appendChild(el("line", { x1: sx(r.lo), y1: cy, x2: sx(r.hi), y2: cy, stroke: C.surface, "stroke-width": 5, "stroke-linecap": "round" }));
+        svg.appendChild(el("line", { x1: sx(r.lo), y1: cy, x2: sx(r.hi), y2: cy, stroke: C.ink, "stroke-width": 1.5, "stroke-linecap": "round" }));
+        [r.lo, r.hi].forEach(function (v) {
+          svg.appendChild(el("line", { x1: sx(v), y1: cy - 5, x2: sx(v), y2: cy + 5, stroke: C.ink, "stroke-width": 1.5 }));
+        });
+      }
+
+      /* Clear the interval's upper whisker, so the number never sits on the rule. */
+      var labelX = (r.hi !== undefined ? sx(r.hi) : sx(r.value)) + 12;
+      svg.appendChild(txt(opts.fmtValue(r.value), { x: labelX, y: y + barH / 2 + 5, fill: C.ink, "font-size": 13, "font-weight": 700 }));
+
+      var hit = el("rect", { x: padL, y: y - gap / 2, width: plotW, height: barH + gap, fill: "transparent" });
+      bindTip(hit, r.tip);
+      svg.appendChild(hit);
+    });
+
+    /* the reference line sits on top of everything it crosses */
+    svg.appendChild(el("line", { x1: sx(ref), y1: padT - 12, x2: sx(ref), y2: H - padB + 2, stroke: C.fair, "stroke-width": 1.5, "stroke-dasharray": "4 3" }));
+    svg.appendChild(txt(opts.refLabel, { x: sx(ref), y: padT - 18, fill: C.ink2, "font-size": 11, "text-anchor": "middle", "font-weight": 600 }));
+
+    mount.appendChild(svg);
+  }
+
+  /* ---- vertical bars, single series ---- */
+  function vertical(mount, opts) {
+    var rows = opts.rows, ref = opts.ref, max = opts.max;
+    var W = 820, padL = 52, padR = 16, padT = 40, padB = 46;
+    var plotW = W - padL - padR, plotH = 250;
+    var H = padT + plotH + padB;
+    var step = plotW / rows.length, bw = Math.min(opts.barW || 34, step - 4);
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": opts.alt });
+    var sy = function (v) { return padT + plotH - (v / max) * plotH; };
+
+    (opts.ticks || []).forEach(function (t) {
+      svg.appendChild(el("line", { x1: padL - 8, y1: sy(t), x2: W - padR, y2: sy(t), stroke: C.rule, "stroke-width": 1 }));
+      svg.appendChild(txt(opts.fmtTick(t), { x: padL - 12, y: sy(t) + 4, fill: C.ink3, "font-size": 11, "text-anchor": "end" }));
+    });
+
+    rows.forEach(function (r, i) {
+      var x = padL + i * step + (step - bw) / 2;
+      var h = Math.max(0, padT + plotH - sy(r.value));
+      svg.appendChild(el("path", { d: vBar(x, sy(r.value), bw, h, 4), fill: r.value >= ref ? C.over : C.under }));
+      svg.appendChild(txt(r.label, { x: x + bw / 2, y: padT + plotH + 18, fill: C.ink3, "font-size": 11, "text-anchor": "middle" }));
+      if (r.callout) svg.appendChild(txt(opts.fmtValue(r.value), { x: x + bw / 2, y: sy(r.value) - 9, fill: C.ink, "font-size": 13, "font-weight": 700, "text-anchor": "middle" }));
+      var hit = el("rect", { x: padL + i * step, y: padT, width: step, height: plotH, fill: "transparent" });
+      bindTip(hit, r.tip);
+      svg.appendChild(hit);
+    });
+
+    svg.appendChild(el("line", { x1: padL - 8, y1: sy(ref), x2: W - padR, y2: sy(ref), stroke: C.fair, "stroke-width": 1.5, "stroke-dasharray": "4 3" }));
+    svg.appendChild(txt(opts.refLabel, { x: W - padR, y: sy(ref) - 7, fill: C.ink2, "font-size": 11, "text-anchor": "end", "font-weight": 600 }));
+    if (opts.axisLabel) svg.appendChild(txt(opts.axisLabel, { x: padL + plotW / 2, y: H - 10, fill: C.ink3, "font-size": 11, "text-anchor": "middle" }));
+
+    mount.appendChild(svg);
+  }
+
+  /* ---- grouped vertical bars, two series ---- */
+  function grouped(mount, opts) {
+    var groups = opts.groups, max = opts.max, ref = opts.ref;
+    var W = 820, padL = 52, padR = 16, padT = 34, padB = 52;
+    var plotW = W - padL - padR, plotH = 240;
+    var H = padT + plotH + padB;
+    var gStep = plotW / groups.length, bw = 74, inner = 2;
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": opts.alt });
+    var sy = function (v) { return padT + plotH - (v / max) * plotH; };
+
+    (opts.ticks || []).forEach(function (t) {
+      svg.appendChild(el("line", { x1: padL - 8, y1: sy(t), x2: W - padR, y2: sy(t), stroke: C.rule, "stroke-width": 1 }));
+      svg.appendChild(txt(opts.fmtTick(t), { x: padL - 12, y: sy(t) + 4, fill: C.ink3, "font-size": 11, "text-anchor": "end" }));
+    });
+
+    groups.forEach(function (g, i) {
+      var cx = padL + i * gStep + gStep / 2;
+      var x0 = cx - bw - inner / 2;
+      g.bars.forEach(function (b, j) {
+        var x = x0 + j * (bw + inner);
+        var h = Math.max(0, padT + plotH - sy(b.value));
+        svg.appendChild(el("path", { d: vBar(x, sy(b.value), bw, h, 4), fill: j === 0 ? C.over : C.under }));
+        /* interval, ringed in surface so it stays readable on the fill */
+        svg.appendChild(el("line", { x1: x + bw / 2, y1: sy(b.lo), x2: x + bw / 2, y2: sy(b.hi), stroke: C.surface, "stroke-width": 5 }));
+        svg.appendChild(el("line", { x1: x + bw / 2, y1: sy(b.lo), x2: x + bw / 2, y2: sy(b.hi), stroke: C.ink, "stroke-width": 1.5 }));
+        [b.lo, b.hi].forEach(function (v) {
+          svg.appendChild(el("line", { x1: x + bw / 2 - 5, y1: sy(v), x2: x + bw / 2 + 5, y2: sy(v), stroke: C.ink, "stroke-width": 1.5 }));
+        });
+        svg.appendChild(txt(b.value.toFixed(2) + "×", { x: x + bw / 2, y: sy(b.hi) - 9, fill: C.ink, "font-size": 13, "font-weight": 700, "text-anchor": "middle" }));
+        var hit = el("rect", { x: x, y: padT, width: bw, height: plotH, fill: "transparent" });
+        bindTip(hit, b.tip);
+        svg.appendChild(hit);
+      });
+      svg.appendChild(txt(g.label, { x: cx, y: padT + plotH + 20, fill: C.ink, "font-size": 13, "text-anchor": "middle", "font-weight": 600 }));
+      svg.appendChild(txt(g.sub, { x: cx, y: padT + plotH + 36, fill: C.ink3, "font-size": 11, "text-anchor": "middle" }));
+    });
+
+    svg.appendChild(el("line", { x1: padL - 8, y1: sy(ref), x2: W - padR, y2: sy(ref), stroke: C.fair, "stroke-width": 1.5, "stroke-dasharray": "4 3" }));
+    svg.appendChild(txt(opts.refLabel, { x: W - padR, y: sy(ref) - 7, fill: C.ink2, "font-size": 11, "text-anchor": "end", "font-weight": 600 }));
+    mount.appendChild(svg);
+  }
+
+  window.__charts = { horizontal: horizontal, vertical: vertical, grouped: grouped };
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var H = window.__charts.horizontal, V = window.__charts.vertical, G = window.__charts.grouped;
+  var pc = function (v) { return (v * 100).toFixed(1) + "%"; };
+  var mult = function (v) { return v.toFixed(2) + "×"; };
+
+  /* C1 — the five naming styles, mean share won by the alphabetically-first option */
+  H(document.getElementById("c1"), {
+    alt: "Mean share won by the alphabetically-first option across five naming styles, against a 6.25% fair share.",
+    ref: 0.0625, max: 0.36, ticks: [0, 0.1, 0.2, 0.3],
+    fmtTick: function (t) { return (t * 100) + "%"; }, fmtValue: pc,
+    rows: [
+      { label: "Numbered", sub: "item7 … item22", value: 0.319, bold: true,
+        tip: "<b>Numbered</b> — item7…item22<br>Top option takes <b>31.9%</b><br>5.1× its fair share · 30 questions" },
+      { label: "Random IDs", sub: "UUIDs", value: 0.159,
+        tip: "<b>Random IDs</b> — UUIDs<br>Top option takes <b>15.9%</b><br>2.5× its fair share · 30 questions" },
+      { label: "Ordinary words", sub: "amber, basket, candle", value: 0.102,
+        tip: "<b>Ordinary words</b><br>Top option takes <b>10.2%</b><br>1.6× its fair share · 30 questions" },
+      { label: "Nonsense words", sub: "fepif, mupuz, gopot", value: 0.074,
+        tip: "<b>Nonsense words</b><br>Top option takes <b>7.4%</b><br>1.2× its fair share · 30 questions" },
+      { label: "Mixed case", sub: "Silver, _engine, 3hollow", value: 0.063,
+        tip: "<b>Mixed case and punctuation</b><br>Top option takes <b>6.3%</b><br>1.0× — no effect at all · 30 questions" }
+    ],
+    refLabel: "fair share 6.25%"
+  });
+
+  /* C2 — the comparison that rules out sorting */
+  H(document.getElementById("c2"), {
+    alt: "Options starting with the letter a take 2.04 times their fair share; alphabetically-first options starting with any later letter take 1.12 times, an interval that crosses 1.",
+    ref: 1, max: 2.7, ticks: [0, 1, 2], padL: 210, barH: 34, gap: 22,
+    fmtTick: function (t) { return t + "×"; }, fmtValue: mult,
+    rows: [
+      { label: "Starts with “a”", sub: "amber, anchor, almond — 36 questions", value: 2.04, lo: 1.668, hi: 2.412, bold: true,
+        tip: "<b>First option starts with “a”</b><br>Takes <b>2.04×</b> its fair share<br>95% range 1.67–2.41 · n = 36" },
+      { label: "Starts with “b”–“z”", sub: "still first alphabetically — 84 questions", value: 1.116, lo: 0.983, hi: 1.249,
+        tip: "<b>First option starts with a later letter</b><br>Takes <b>1.12×</b> its fair share<br>95% range 0.98–1.25 — <b>crosses 1.00</b><br>Indistinguishable from no effect · n = 84" }
+    ],
+    refLabel: "fair share"
+  });
+
+  /* C3 — name style; digit-led sorts first in code and loses */
+  H(document.getElementById("c3"), {
+    alt: "By name style: capitalised names take 1.41 times fair share, lowercase 1.08, underscore-prefixed 0.88, and digit-led names only 0.63.",
+    ref: 1, max: 1.75, ticks: [0, 0.5, 1, 1.5], padL: 214, barH: 30, gap: 18,
+    fmtTick: function (t) { return t + "×"; }, fmtValue: mult,
+    rows: [
+      { label: "Capitalised", sub: "Silver, Falcon", value: 1.409, lo: 1.25, hi: 1.568,
+        tip: "<b>Capitalised</b> — Silver, Falcon<br><b>1.41×</b> fair share (95% 1.25–1.57)<br>Collects the most · 120 options" },
+      { label: "Plain lowercase", sub: "violet, vessel", value: 1.081, lo: 0.948, hi: 1.215,
+        tip: "<b>Plain lowercase</b> — violet, vessel<br><b>1.08×</b> fair share (95% 0.95–1.22)<br>120 options" },
+      { label: "Underscore first", sub: "_engine, _basket", value: 0.877, lo: 0.758, hi: 0.997,
+        tip: "<b>Underscore first</b> — _engine<br><b>0.88×</b> fair share (95% 0.76–1.00)<br>120 options" },
+      { label: "Digit first", sub: "3hollow, 4tandem", value: 0.631, lo: 0.522, hi: 0.739, bold: true,
+        tip: "<b>Digit first</b> — 3hollow, 4tandem<br><b>0.63×</b> fair share (95% 0.52–0.74)<br>These sort FIRST in code and collect the LEAST · 120 options" }
+    ],
+    refLabel: "fair share"
+  });
+
+  /* C4 — the headline: what a numbered list actually returns */
+  var dist = [0.831, 0.021, 0.019, 0.012, 0.016, 0.010, 0.010, 0.008, 0.010, 0.012, 0.008, 0.009, 0.010, 0.008, 0.006, 0.009];
+  V(document.getElementById("c4"), {
+    alt: "Average distribution over sixteen numbered options: item1 takes 83.1% and every other option takes 2.1% or less.",
+    ref: 0.0625, max: 0.9, ticks: [0, 0.25, 0.5, 0.75],
+    fmtTick: function (t) { return (t * 100) + "%"; }, fmtValue: pc,
+    axisLabel: "option, in numeric order",
+    rows: dist.map(function (v, i) {
+      return {
+        label: String(i + 1), value: v, callout: i === 0,
+        tip: "<b>item" + (i + 1) + "</b><br>Takes <b>" + pc(v) + "</b> of the distribution<br>Fair share would be 6.25%"
+      };
+    }),
+    refLabel: "fair share 6.25%"
+  });
+
+  /* C5 — separating the comparison from the token */
+  H(document.getElementById("c5"), {
+    alt: "When a numbered run starts at 1 the lowest option takes 83.1%; when it starts at 2 or 3 it takes about 27%.",
+    ref: 0.0625, max: 0.95, ticks: [0, 0.25, 0.5, 0.75], padL: 200, barH: 30, gap: 18,
+    fmtTick: function (t) { return (t * 100) + "%"; }, fmtValue: pc,
+    rows: [
+      { label: "Run starts at 1", sub: "item1 … item16", value: 0.831, bold: true,
+        tip: "<b>Run starts at 1</b><br>item1 takes <b>83.1%</b><br>13.3× fair share · 10 questions" },
+      { label: "Run starts at 2", sub: "item2 … item17", value: 0.273,
+        tip: "<b>Run starts at 2</b><br>item2 takes <b>27.3%</b><br>4.4× fair share · 10 questions" },
+      { label: "Run starts at 3", sub: "item3 … item18", value: 0.271,
+        tip: "<b>Run starts at 3</b><br>item3 takes <b>27.1%</b><br>4.3× fair share · 10 questions<br>Identical to starting at 2 — so this is not a liking for small numbers" }
+    ],
+    refLabel: "fair share 6.25%"
+  });
+
+  /* C6 — name style against list length */
+  G(document.getElementById("c6"), {
+    alt: "Bare letters take 2.55 times fair share with 8 options and 7.61 times with 16; real words take 1.17 and 1.58.",
+    ref: 1, max: 10.5, ticks: [0, 2, 4, 6, 8, 10],
+    fmtTick: function (t) { return t + "×"; },
+    refLabel: "fair share",
+    groups: [
+      { label: "8 options", sub: "shorter list", bars: [
+        { value: 2.55, lo: 1.71, hi: 3.39, tip: "<b>Bare letters, 8 options</b><br><b>2.55×</b> fair share (95% 1.71–3.39)<br>30 questions" },
+        { value: 1.17, lo: 0.97, hi: 1.37, tip: "<b>Real words, 8 options</b><br><b>1.17×</b> fair share (95% 0.97–1.37)<br>Crosses 1.00 — no reliable effect<br>30 questions" }
+      ] },
+      { label: "16 options", sub: "longer list", bars: [
+        { value: 7.61, lo: 5.86, hi: 9.37, tip: "<b>Bare letters, 16 options</b><br><b>7.61×</b> fair share (95% 5.86–9.37)<br>The strongest effect measured<br>30 questions" },
+        { value: 1.58, lo: 1.15, hi: 2.02, tip: "<b>Real words, 16 options</b><br><b>1.58×</b> fair share (95% 1.15–2.02)<br>30 questions" }
+      ] }
+    ]
+  });
+})();
+</script>
